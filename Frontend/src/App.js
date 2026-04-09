@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+const API = "http://13.60.179.255:5000"; // ✅ your backend IP
+
 function App() {
   const [selected, setSelected] = useState(null);
   const [meaning, setMeaning] = useState("");
@@ -15,11 +17,11 @@ function App() {
   ];
 
   useEffect(() => {
-    fetch("http://localhost:5000/visit", { method: "POST" });
+    fetch(`${API}/visit`, { method: "POST" });
   }, []);
 
   const handleClick = async (quote) => {
-    const res = await fetch(`http://localhost:5000/quote?q=${encodeURIComponent(quote)}`);
+    const res = await fetch(`${API}/quote?q=${encodeURIComponent(quote)}`);
     const data = await res.json();
 
     setSelected(quote);
