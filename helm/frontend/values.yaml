@@ -1,0 +1,11 @@
+replicaCount: 2
+
+image:
+  repository: your-dockerhub/frontend
+  tag: latest
+
+service:
+  port: 80
+
+env:
+  REACT_APP_API: http://backend:5000

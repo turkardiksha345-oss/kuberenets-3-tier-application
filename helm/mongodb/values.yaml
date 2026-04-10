@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: mongo
+  tag: "6"
+
+storage:
+  size: 1Gi

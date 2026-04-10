@@ -1,0 +1,11 @@
+replicaCount: 2
+
+image:
+  repository: your-dockerhub/backend
+  tag: latest
+
+service:
+  port: 5000
+
+env:
+  MONGO_URI: mongodb://mongodb:27017/cafe

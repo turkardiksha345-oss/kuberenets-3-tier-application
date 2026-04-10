@@ -1,64 +1,32 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
+const connectDB = require("./db");
+const User = require("./userModel");
+const Order = require("./orderModel");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
-mongoose.connect("mongodb://localhost:27017/quotes");
+connectDB();
 
-// Counter schema
-const Counter = mongoose.model("Counter", {
-  clicks: Number
+// Signup API
+app.post("/signup", async (req, res) => {
+  const user = new User(req.body);
+  await user.save();
+  res.send("User Registered");
 });
 
-// Initialize counter
-async function init() {
-  const exists = await Counter.findOne();
-  if (!exists) {
-    await Counter.create({ clicks: 0 });
-  }
-}
-init();
-
-// Quotes + meanings
-const quotesData = {
-  "Success is not final, failure is not fatal":
-    "Success and failure are temporary. Keep moving forward.",
-
-  "Stars can’t shine without darkness":
-    "Difficult times help you grow and stand out.",
-
-  "Dream big, work hard":
-    "Big dreams need consistent effort.",
-
-  "Every moment is a fresh beginning":
-    "You can restart anytime in life.",
-
-  "Push yourself, because no one else will":
-    "Self-motivation is the key to success."
-};
-
-// Track visit
-app.post("/visit", async (req, res) => {
-  await Counter.updateOne({}, { $inc: { clicks: 1 } });
-  res.send("Visited");
+// Place Order API
+app.post("/order", async (req, res) => {
+  const order = new Order(req.body);
+  await order.save();
+  res.send("Order Placed");
 });
 
-// Get quote meaning
-app.get("/quote", async (req, res) => {
-  const quote = req.query.q;
-
-  await Counter.updateOne({}, { $inc: { clicks: 1 } });
-
-  const counter = await Counter.findOne();
-
-  res.json({
-    meaning: quotesData[quote],
-    clicks: counter.clicks
-  });
+// Health check
+app.get("/", (req, res) => {
+  res.send("Backend running");
 });
 
 app.listen(5000, "0.0.0.0", () => {
