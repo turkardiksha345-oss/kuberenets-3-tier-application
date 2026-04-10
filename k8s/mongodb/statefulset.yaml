@@ -39,10 +39,11 @@ spec:
               mountPath: /data/db
 
   volumeClaimTemplates:
-    - metadata:
-        name: mongo-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
+  - metadata:
+      name: mongo-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: gp2   
+      resources:
+        requests:
+          storage: 1Gi
