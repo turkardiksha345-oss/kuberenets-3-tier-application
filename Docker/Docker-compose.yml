@@ -9,7 +9,7 @@ services:
   backend:
     build:
       context: ..
-      dockerfile: Docker/backend.Dockerfile   # ✅ FIXED
+      dockerfile: backend.Dockerfile   # ✅ FIXED (NO docker/ folder)
     ports:
       - "5000:5000"
     environment:
@@ -20,7 +20,7 @@ services:
   frontend:
     build:
       context: ..
-      dockerfile: Docker/frontend.Dockerfile  # ✅ FIXED
+      dockerfile: frontend.Dockerfile  # ✅ FIXED
     ports:
       - "3000:80"
     depends_on:
