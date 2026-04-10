@@ -8,8 +8,8 @@ services:
 
   backend:
     build:
-      context: ..
-      dockerfile: docker/backend.Dockerfile
+      context: ..                 # go one level up
+      dockerfile: Docker/backend.Dockerfile
     ports:
       - "5000:5000"
     environment:
@@ -20,7 +20,7 @@ services:
   frontend:
     build:
       context: ..
-      dockerfile: docker/frontend.Dockerfile
+      dockerfile: Docker/frontend.Dockerfile
     ports:
       - "3000:80"
     depends_on:
