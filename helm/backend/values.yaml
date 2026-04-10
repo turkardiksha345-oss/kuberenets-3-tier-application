@@ -8,5 +8,4 @@ service:
   port: 5000
 
 env:
-  - name: MONGO_URI
-    value: mongodb://mongodb-0.mongodb:27017/cafe
+  MONGO_URI: mongodb://mongodb-0.mongodb:27017/cafe
