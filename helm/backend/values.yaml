@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: your-dockerhub/backend
+  repository: dikshat1024/backend
   tag: latest
 
 service:

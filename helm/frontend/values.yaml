@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: your-dockerhub/frontend
+  repository: dikshat1024/frontend
   tag: latest
 
 service:
