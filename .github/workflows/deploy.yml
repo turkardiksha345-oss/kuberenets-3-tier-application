@@ -5,51 +5,51 @@ on:
     branches:
       - main
 
+# ✅ REQUIRED for git push
+permissions:
+  contents: write
+
 env:
   IMAGE_BACKEND: ${{ secrets.DOCKER_USERNAME }}/backend
   IMAGE_FRONTEND: ${{ secrets.DOCKER_USERNAME }}/frontend
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout
+      # 1️⃣ Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Docker login
-      - name: Login to DockerHub
+      # 2️⃣ Login to DockerHub
+      - name: Docker Login
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # 3️⃣ Build Backend (FIXED)
+      # 3️⃣ Build Backend Image (FIXED)
       - name: Build Backend Image
         run: |
           docker build -t $IMAGE_BACKEND:${{ github.sha }} -f Docker/backend.Dockerfile ./Backend
           docker push $IMAGE_BACKEND:${{ github.sha }}
 
-      # 4️⃣ Build Frontend (FIXED)
+      # 4️⃣ Build Frontend Image (FIXED)
       - name: Build Frontend Image
         run: |
           docker build -t $IMAGE_FRONTEND:${{ github.sha }} -f Docker/frontend.Dockerfile ./Frontend
           docker push $IMAGE_FRONTEND:${{ github.sha }}
 
-      - name: Debug files
-        run: |
-          ls -R k8s
-
-      # 5️⃣ Update Kubernetes manifests
+      # 5️⃣ Update Kubernetes manifests (FIXED paths)
       - name: Update image tags
         run: |
           sed -i "s|IMAGE_BACKEND|$IMAGE_BACKEND:${{ github.sha }}|g" k8s/backend/deployement.yml
           sed -i "s|IMAGE_FRONTEND|$IMAGE_FRONTEND:${{ github.sha }}|g" k8s/frontend/deployment.yaml
 
-      # 6️⃣ Commit changes back
-      - name: Commit & Push
+      # 6️⃣ Commit & Push (FIXED 403 error)
+      - name: Commit & Push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add k8s/
-          git commit -m "Update image tags to ${{ github.sha }}" || echo "No changes"
-          git push
+          git commit -m "Update image tags to ${{ github.sha }}" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }} HEAD:main
