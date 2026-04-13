@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb
-labels:
-  app: mongodb
+  labels:            # ✅ CORRECT PLACE
+    app: mongodb
 spec:
-  clusterIP: None   
   selector:
     app: mongodb
   ports:
     - port: 27017
       targetPort: 27017
+  clusterIP: None
