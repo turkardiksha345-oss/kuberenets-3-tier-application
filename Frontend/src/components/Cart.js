@@ -1,4 +1,4 @@
-const API = "http://localhost:5000";
+const API = "http://backend:5000";
 
 function Cart({ cart }) {
 

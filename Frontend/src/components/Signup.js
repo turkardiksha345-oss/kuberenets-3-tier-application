@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API = "http://localhost:5000";
+const API = "http://backend:5000";
 
 function Signup() {
   const [user, setUser] = useState({});
