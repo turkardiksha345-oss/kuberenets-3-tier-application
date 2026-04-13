@@ -12,14 +12,14 @@ app.use(express.json());
 connectDB();
 
 // Signup API
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   const user = new User(req.body);
   await user.save();
   res.send("User Registered");
 });
 
 // Place Order API
-app.post("/order", async (req, res) => {
+app.post("/api/order", async (req, res) => {
   const order = new Order(req.body);
   await order.save();
   res.send("Order Placed");
