@@ -38,8 +38,8 @@ jobs:
       # 5️⃣ Update Kubernetes manifests
       - name: Update image tags
         run: |
-          sed -i "s|IMAGE_BACKEND|$IMAGE_BACKEND:${{ github.sha }}|g" k8s/backend/deployment.yaml
-          sed -i "s|IMAGE_FRONTEND|$IMAGE_FRONTEND:${{ github.sha }}|g" k8s/frontend/deployment.yaml
+          sed -i "s|IMAGE_BACKEND|$IMAGE_BACKEND:${{ github.sha }}|g" k8s/Backend/deployment.yaml
+          sed -i "s|IMAGE_FRONTEND|$IMAGE_FRONTEND:${{ github.sha }}|g" k8s/Frontend/deployment.yaml
 
       # 6️⃣ Commit changes back
       - name: Commit & Push
