@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/turkardiksha345-oss/kubernetes-3-tier-app.git
+    repoURL: https://github.com/turkardiksha345-oss/kuberenets-3-tier-application.git
     targetRevision: main
     path: k8s
 
