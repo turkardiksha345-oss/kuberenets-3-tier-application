@@ -1,4 +1,4 @@
-const API = "http://backend:5000";
+const API = "http://13.62.102.102:5000";
 
 function Cart({ cart }) {
 
