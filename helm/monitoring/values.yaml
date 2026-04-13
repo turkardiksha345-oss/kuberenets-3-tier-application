@@ -1,0 +1,65 @@
+global:
+  rbac:
+    create: true
+
+prometheusOperator:
+  enabled: true
+  admissionWebhooks:
+    enabled: true
+
+grafana:
+  enabled: true
+  adminPassword: admin
+  service:
+    type: ClusterIP
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    replicas: 1
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2-immediate
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 500Mi
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+
+prometheus:
+  enabled: true
+  prometheusSpec:
+    replicas: 1
+    retention: 1d
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2-immediate
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+
+kube-state-metrics:
+  enabled: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+nodeExporter:
+  enabled: true
